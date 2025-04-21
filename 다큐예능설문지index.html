@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>사상검증 설문</title>
+  <title>사상검증</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -79,7 +79,6 @@
 </head>
 <body>
 
-  <!-- 페이지 1 -->
   <div class="page active" id="page1">
     <h1>사상검증</h1>
     <p>당신의 생각을 알아볼 시간입니다.<br>닉네임을 입력해 주세요.</p>
@@ -88,7 +87,6 @@
     <button onclick="nextPage()">다음</button>
   </div>
 
-  <!-- 질문 페이지 -->
   <div class="page" id="page2">
     <h2>정치 성향</h2>
     <p>당신은 좌파에 더 가깝나요, 우파에 더 가깝나요?</p>
@@ -114,7 +112,7 @@
     </div>
     <button onclick="nextPage()">다음</button>
   </div>
-  
+
   <div class="page" id="page4">
     <h2>계급 의식</h2>
     <p>당신은 서민적 감성이 강한가요, 부유한 삶을 지향하나요?</p>
@@ -127,7 +125,7 @@
     </div>
     <button onclick="nextPage()">다음</button>
   </div>
-  
+
   <div class="page" id="page5">
     <h2>개방성</h2>
     <p>당신은 개방적인가요, 전통적인가요?</p>
@@ -141,7 +139,6 @@
     <button onclick="drawResult()">결과 보기</button>
   </div>
 
-  <!-- 결과 페이지 -->
   <div class="page" id="page6">
     <h1>사상검증 결과</h1>
     <canvas id="resultCanvas" width="600" height="800"></canvas>
@@ -234,7 +231,5 @@
       link.click();
     }
   </script>
-
 </body>
 </html>
- 
