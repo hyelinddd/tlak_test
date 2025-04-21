@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>사상검증 설문</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: linear-gradient(to bottom right, #e5f0ff, #ffffff);
+      margin: 0;
+      padding: 40px 20px;
+      text-align: center;
+      color: #1a2a4f;
+    }
+    h1, h2 {
+      font-weight: 700;
+      color: #1a2a4f;
+    }
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    .page {
+      display: none;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+    .active {
+      display: block;
+    }
+    input[type="text"] {
+      padding: 14px 16px;
+      font-size: 18px;
+      width: 80%;
+      border: 2px solid #a5c7f8;
+      border-radius: 10px;
+    }
+    .choices {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px auto 30px;
+      width: 80%;
+    }
+    .choices label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 14px;
+    }
+    input[type="radio"] {
+      margin: 10px;
+      width: 20px;
+      height: 20px;
+    }
+    button {
+      background-color: #4A90E2;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #356ac3;
+    }
+    canvas {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 페이지 1 -->
+  <div class="page active" id="page1">
+    <h1>사상검증</h1>
+    <p>당신의 생각을 알아볼 시간입니다.<br>닉네임을 입력해 주세요.</p>
+    <input type="text" id="username" placeholder="닉네임" />
+    <br><br>
+    <button onclick="nextPage()">다음</button>
+  </div>
+
+  <!-- 질문 페이지 -->
+  <div class="page" id="page2">
+    <h2>정치 성향</h2>
+    <p>당신은 좌파에 더 가깝나요, 우파에 더 가깝나요?</p>
+    <div class="choices">
+      <label>전혀 아니다<br><input type="radio" name="score1" value="1"></label>
+      <label>아니다<br><input type="radio" name="score1" value="2"></label>
+      <label>보통이다<br><input type="radio" name="score1" value="3" checked></label>
+      <label>그렇다<br><input type="radio" name="score1" value="4"></label>
+      <label>매우 그렇다<br><input type="radio" name="score1" value="5"></label>
+    </div>
+    <button onclick="nextPage()">다음</button>
+  </div>
+
+  <div class="page" id="page3">
+    <h2>젠더 인식</h2>
+    <p>당신은 페미니즘에 동의하나요, 이퀄리즘에 동의하나요?</p>
+    <div class="choices">
+      <label>전혀 아니다<br><input type="radio" name="score2" value="1"></label>
+      <label>아니다<br><input type="radio" name="score2" value="2"></label>
+      <label>보통이다<br><input type="radio" name="score2" value="3" checked></label>
+      <label>그렇다<br><input type="radio" name="score2" value="4"></label>
+      <label>매우 그렇다<br><input type="radio" name="score2" value="5"></label>
+    </div>
+    <button onclick="nextPage()">다음</button>
+  </div>
+  
+  <div class="page" id="page4">
+    <h2>계급 의식</h2>
+    <p>당신은 서민적 감성이 강한가요, 부유한 삶을 지향하나요?</p>
+    <div class="choices">
+      <label>전혀 아니다<br><input type="radio" name="score3" value="1"></label>
+      <label>아니다<br><input type="radio" name="score3" value="2"></label>
+      <label>보통이다<br><input type="radio" name="score3" value="3" checked></label>
+      <label>그렇다<br><input type="radio" name="score3" value="4"></label>
+      <label>매우 그렇다<br><input type="radio" name="score3" value="5"></label>
+    </div>
+    <button onclick="nextPage()">다음</button>
+  </div>
+  
+  <div class="page" id="page5">
+    <h2>개방성</h2>
+    <p>당신은 개방적인가요, 전통적인가요?</p>
+    <div class="choices">
+      <label>전혀 아니다<br><input type="radio" name="score4" value="1"></label>
+      <label>아니다<br><input type="radio" name="score4" value="2"></label>
+      <label>보통이다<br><input type="radio" name="score4" value="3" checked></label>
+      <label>그렇다<br><input type="radio" name="score4" value="4"></label>
+      <label>매우 그렇다<br><input type="radio" name="score4" value="5"></label>
+    </div>
+    <button onclick="drawResult()">결과 보기</button>
+  </div>
+
+  <!-- 결과 페이지 -->
+  <div class="page" id="page6">
+    <h1>사상검증 결과</h1>
+    <canvas id="resultCanvas" width="600" height="800"></canvas>
+    <br><button onclick="downloadImage()">이미지 저장</button>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    function nextPage() {
+      document.getElementById(`page${currentPage}`).classList.remove('active');
+      currentPage++;
+      document.getElementById(`page${currentPage}`).classList.add('active');
+    }
+
+    const categories = [
+      { label: '정치', left: '좌파', right: '우파', color: '#4A90E2' },
+      { label: '젠더', left: '페미', right: '이퀄', color: '#6C9BD2' },
+      { label: '계급', left: '서민', right: '부유', color: '#8DB2E8' },
+      { label: '개방성', left: '개방', right: '전통', color: '#A6C1ED' }
+    ];
+
+    function drawResult() {
+      document.getElementById(`page${currentPage}`).classList.remove('active');
+      currentPage++;
+      document.getElementById(`page${currentPage}`).classList.add('active');
+
+      const canvas = document.getElementById('resultCanvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const username = document.getElementById('username').value || '닉네임';
+      const scores = [
+        getSelectedValue('score1'),
+        getSelectedValue('score2'),
+        getSelectedValue('score3'),
+        getSelectedValue('score4')
+      ];
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#1a2a4f";
+      ctx.font = "24px 'Noto Sans KR'";
+      ctx.fillText(`${username}님의 사상검증 결과`, 100, 50);
+
+      let startY = 120;
+      for (let i = 0; i < categories.length; i++) {
+        const cat = categories[i];
+        const score = scores[i];
+        const barWidth = 400;
+        const leftWidth = (score / 5) * barWidth;
+
+        ctx.fillStyle = "#ccc";
+        ctx.fillRect(100, startY, barWidth, 30);
+
+        ctx.fillStyle = cat.color;
+        ctx.fillRect(100, startY, leftWidth, 30);
+
+        ctx.fillStyle = "#000";
+        ctx.font = "16px 'Noto Sans KR'";
+        ctx.fillText(`${cat.left}`, 60, startY + 20);
+        ctx.fillText(`${score}`, 510, startY + 20);
+        ctx.fillText(`${cat.right}`, 550, startY + 20);
+
+        ctx.font = "18px 'Noto Sans KR'";
+        ctx.fillText(`${cat.label}`, 100, startY - 10);
+
+        startY += 80;
+      }
+
+      ctx.font = "12px 'Noto Sans KR'";
+      ctx.fillStyle = "#333";
+      ctx.fillText("※ 각 영역은 점수가 높을수록 해당 성향이 강합니다.", 100, startY + 40);
+      ctx.fillText("※ 본 결과는 참고용이며 실제 가치 판단과 다를 수 있습니다.", 100, startY + 60);
+    }
+
+    function getSelectedValue(name) {
+      const radios = document.getElementsByName(name);
+      for (const r of radios) {
+        if (r.checked) return parseInt(r.value);
+      }
+      return 3;
+    }
+
+    function downloadImage() {
+      const canvas = document.getElementById("resultCanvas");
+      const link = document.createElement("a");
+      link.download = "사상검증_결과.png";
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+  </script>
+
+</body>
+</html>
+ 
